@@ -10,11 +10,12 @@ import (
 func CheckAuth() Middleware {
 	return func(f http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request){
-			flag := true
+			flag := false
 			fmt.Println("Checking auth...")
 			if flag {
 				f(w,r)
 			} else {
+				w.WriteHeader(http.StatusMethodNotAllowed)
 				return
 			}
 		}
